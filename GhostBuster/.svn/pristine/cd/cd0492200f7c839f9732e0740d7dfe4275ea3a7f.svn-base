@@ -1,0 +1,37 @@
+package com.example.function;
+
+import com.example.data.Point;
+ 
+
+/**
+ * 进行不同界面的传值
+ * @author jsjxy
+ *
+ */
+public class TransitData {
+        
+	
+	      public   static   Point  ghostpoints[] = new Point[6];    //用来保存幽灵的坐标点
+	      public   static   Point  miaozhunpoints= new Point();    //用来保存按下的瞄准点的坐标
+	
+	      
+	       public static Point[] getGhostpoints() {
+			return ghostpoints;
+		}
+		public static void setGhostpoints(Point[] ghostpoints) {
+			TransitData.ghostpoints = ghostpoints;
+		}
+		public static Point getMiaozhunpoints() {
+			return miaozhunpoints;
+		}
+		public static void setMiaozhunpoints(Point miaozhunpoints) {
+			TransitData.miaozhunpoints = miaozhunpoints;
+		}
+	         
+	     
+	       
+	
+	
+	
+	
+}
