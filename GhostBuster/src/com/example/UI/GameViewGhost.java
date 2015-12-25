@@ -35,10 +35,6 @@ public class GameViewGhost  extends View   {
 	//屏幕三个角上的属性
 	private   String  time = "时间:";
 	private   int  timezi = 180;
-	private  String   score = "分数";
-	private  int  scorezi = 0;
-	private  int   count = 1000;
-	private  Bitmap   zidan;                                   //子弹图片
 	private  boolean Initflag  = false;             //初始化标志
 	private  float    x , y;                                          //获得当前动作的x和y坐标
 	//Ghost图像
@@ -56,8 +52,11 @@ public class GameViewGhost  extends View   {
 	private   Bitmap       miaozhunqi; 
 	private   int     move_action  = 0 ;                                                           // 0代表无动作，1代表按下动作， 2 代表抬起动作， 3 代表移动动作
    private   float   screenX , screenY;                                       //获得屏幕上点击的点的坐标
-  private    Point[]  point = new Point [6] ;
-
+   private    Point[]  point = new Point [6] ;
+   private    int  isinit = 0 ;                                                             //重绘画面标志
+   private    boolean   beforeappear = true;
+   private    Bitmap     bullethole = BitmapFactory.decodeResource(getResources(), R.drawable.bullethole);  
+   private    boolean   isjizhong = false;
 	public GameViewGhost(Context context) {
 		super(context);
 		// TODO Auto-generated constructor stub
@@ -83,26 +82,23 @@ public class GameViewGhost  extends View   {
 	/**
 	 * Ghost的显示消失还有各种操作
 	 */
-	@Override
-	protected void onDraw(Canvas canvas) {
+	protected void onDraw(Canvas canvas ) {
 		// TODO Auto-generated method stub
 		//	super.onDraw(canvas);    //不需要用到父类
-
-		initscreen(canvas);
-		initghost(canvas);
-		if(TransitData.isIsdown()){              //幽灵被击中时的刷新图画
-			   isjizhong(canvas);
-		}
-		TransitData.setIsdown(false);
-		if(TransitData.isZidanshu())          //子弹减少时的刷新图画
-		{  
-			 count --;               //子弹数减少
-	      	canvas.drawText(count+ "", 680, 442-5,screenpaint);
-	      	TransitData.setZidanshu(false);
-		}
-		else{
-		 	canvas.drawText(count+ "", 680, 442-5,screenpaint);
-		}
+		   
+		
+    	//是否命中
+			if( TransitData.isdown ){
+		    	    isjizhong(canvas);
+		    	    TransitData.setIsdown(false);
+		    	    isinit = 1;
+		       }
+			initscreen(canvas);
+			if(isinit ==0){
+		          initghost(canvas);
+	    	}
+	
+      	
 		
 	}
 	
@@ -122,7 +118,7 @@ public class GameViewGhost  extends View   {
 			pointsdisappear[k] = new Point(randomx, randomy);                         //保存幽灵消失的位置
 			TransitData.setGhostpoints(pointsappear);                                               //保存和瞄准器相同的坐标
 		//   point  = TransitData.getGhostpoints();
-		//    Log.i(TAG, point[j].ghostX +"" +"坐标" +point[j].ghostY +""); 
+		//   Log.i(TAG, point[j].ghostX +"" +"坐标" +point[j].ghostY +""); 
 		    
 			for(int i = j; i >= 0 ; i-- ){
 				ghost = BitmapFactory.decodeResource(getResources(), R.drawable.ghost0);
@@ -138,8 +134,8 @@ public class GameViewGhost  extends View   {
 			j =0;
 			judgedisappear = false;
 			firstdisappear = true;
-			
-		}
+			beforeappear = false;
+	    }
 		if( !judgedisappear ){
 			for( int  q = 5  ; q> j ; q --){
 				ghost = BitmapFactory.decodeResource(getResources(), R.drawable.ghost0);
@@ -150,23 +146,62 @@ public class GameViewGhost  extends View   {
 		}
 	}
 	
-	//获得点击之后的反馈响应,是否击中了幽灵
+	 //获得点击之后的反馈响应,是否击中了幽灵
+     //用当前的瞄准器坐标和当前的幽灵坐标进行比较，如果坐标相差不大，则说明命中，相差较大则说明没有命中
 	  public   void  isjizhong(Canvas canvas){
-		     Point   jizhong = new Point();
+		   
+		  Point   jizhong = new Point();
 		     jizhong = TransitData.getMiaozhunpoints();
 		     float  x = jizhong.getGhostX();
-		     float y = jizhong.getGhostY();
-	
-			   for(int  ghostcount = 0 ;  ghostcount < 6 ; ghostcount ++){
-			           if(   Math.abs (x  -  pointsappear[ghostcount].ghostX)  < 60&& Math.abs(y - pointsappear[ghostcount].ghostY) <60)
-			           {
+		     float  y = jizhong.getGhostY();
+	         if(beforeappear)
+	         {            
+	        	 //出现前6个幽灵时的按下点解瞄准器的过程
+			   for(int  ghostcount = 0 ;  ghostcount  <= j - 1 ; ghostcount ++){
+			      
+				   if(   Math.abs (x  -  pointsappear[ghostcount].ghostX)  < 60&& Math.abs(y - pointsappear[ghostcount].ghostY) <60)
+			               {
 			    	    	//目标命中
-			    	  //	  Log.i(TAG, "目标命中");
-			        	   ghost_attack0 = BitmapFactory.decodeResource(getResources(), R.drawable.ghost0_attcak);
-			        	    canvas .drawBitmap(ghost_attack0, pointsappear[ghostcount].ghostX, pointsappear[ghostcount].ghostY, bitmappaint);
-			    	  	  break;
-			       }
-			   }
+			    	        //Log.i(TAG, "目标命中");
+					          isjizhong = true;
+			        	      ghost_attack0 = BitmapFactory.decodeResource(getResources(), R.drawable.ghost0_attcak);
+			        	      canvas .drawBitmap(ghost_attack0, pointsappear[ghostcount].ghostX, pointsappear[ghostcount].ghostY, bitmappaint);
+			    	      }
+			       else
+			       { 
+			    	  
+			    	   canvas.drawBitmap(ghost, pointsappear[ghostcount].ghostX, pointsappear[ghostcount].ghostY, bitmappaint);  
+			       }        
+			    	
+			 
+			   
+     	 }
+     	
+			 
+	         }
+	       //幽灵开始消失
+	         else{   
+	        	 for(int  ghostcount = 5 ;  ghostcount    >= 0; ghostcount --){
+				      
+					   if(   Math.abs (x  -  pointsappear[ghostcount].ghostX)  < 60&& Math.abs(y - pointsappear[ghostcount].ghostY) <60)
+				               {
+				    	    	//目标命中
+				    	        //Log.i(TAG, "目标命中");
+					         	   isjizhong = true;
+				        	      ghost_attack0 = BitmapFactory.decodeResource(getResources(), R.drawable.ghost0_attcak);
+				        	      canvas .drawBitmap(ghost_attack0, pointsappear[ghostcount].ghostX, pointsappear[ghostcount].ghostY, bitmappaint);
+				    	      }
+				       else  
+				       {
+				    	   canvas.drawBitmap(ghost, pointsappear[ghostcount].ghostX, pointsappear[ghostcount].ghostY, bitmappaint);  
+				    	 
+			        
+				       }
+				                
+				       }
+	        	
+	        	
+	         }
 		    
 	  }
 	
@@ -179,17 +214,14 @@ public class GameViewGhost  extends View   {
 		height = getHeight();
 		//Log.i(TAG, width+"");
 	//	Log.i(TAG, height + "");
-		zidan = BitmapFactory.decodeResource(getResources(), R.drawable.zidan);
+		
 		//设置画笔的大小，颜色和线条
 		screenpaint.setColor(Color.GREEN);  //字体的颜色   
 		screenpaint.setTextSize(32.0f);           //字体的大小
 		screenpaint.setStyle(Style.FILL);       //线条的风格
 		canvas.drawText(time, 0,30, screenpaint);              //30是上面标志的高度
 		canvas.drawText(timezi+"", 70, 30, screenpaint);
-		canvas.drawText(score, 0, 442-5, screenpaint);	    
-		canvas.drawText(scorezi+"", 70, 442-5, screenpaint);
-
-		canvas.drawBitmap(zidan,760, 353, bitmappaint);   //初始子弹种类,普通子弹
+	
 	}
 
 	
@@ -208,15 +240,16 @@ public class GameViewGhost  extends View   {
 			while(isplay){
 				try {
 
-					Thread.sleep(500);
+					Thread.sleep(2000);
 
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}   
 				timezi  --;
+				isinit = 0;
 				//判断得分，判断剩余子弹数
-				postInvalidate();   //重绘画面
+			    postInvalidate();   //重绘画面
 			}
 		}
 

@@ -1,8 +1,11 @@
 package com.example.UI;
 
 
+import com.example.GridViewAdapter.GridViewAdapter;
 import com.example.data.Ghost;
 import com.example.ghostbuster.R;
+import com.example.listener.OnActionListener;
+import com.example.listener.dataload;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
@@ -11,18 +14,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Gameview  extends Activity implements OnClickListener{
+public class Gameview  extends Activity implements OnClickListener, OnItemClickListener{
 
 	private  SlidingMenu  menu;     //获得侧滑菜单控件
 	private   GameViewGhost  viewghost; 
 	private   ImageButton   shop;
 	private   int        guanka;              //第几关
 	private   GameViewMiaoZhunJing   viewmiaozhunjing;
+	private   GameViewFall       dropprize;
+	private   GridView    select_view;
+	private   GridViewAdapter adapter;
 
 
 	@Override
@@ -34,6 +43,26 @@ public class Gameview  extends Activity implements OnClickListener{
 		setContentView(R.layout.gameview_activity);
 		init();
 		tanchucehua();
+		viewmiaozhunjing.setOnActionListener(new OnActionListener() {
+			
+			@Override
+			public void ghoststate(boolean state) {
+				// TODO Auto-generated method stub
+				       viewghost.postInvalidate();
+			}
+			
+			@Override
+			public void bulletcondition() {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void addscore() {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 
 	}
 	/**
@@ -54,17 +83,26 @@ public class Gameview  extends Activity implements OnClickListener{
 		menu.setMode(SlidingMenu.RIGHT);
 		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);   //在此界面任何地方都能右滑
 		menu.setMenu(R.layout.shangdiancehua_activity);
-		menu.setFadeDegree(0.35f);
-		menu.setBehindOffsetRes(R.dimen.sliding_menuoffset);     //内容页剩余的宽度
+		menu.setFadeDegree(0.35f);                                                                     //淡入淡出
+		menu.setBehindOffsetRes(R.dimen.sliding_menuoffset);       //内容页剩余的宽度
 		menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+		select_view =(GridView) findViewById(R.id.select_photo);
+		adapter = new GridViewAdapter(this);
+		select_view.setAdapter(adapter);
+		select_view.setOnItemClickListener(this);
+		
 		//    menu.showMenu();            // 显示menu
 		// menu.showContent();         //显示内容
+		
+		
 	}
 	public  void   init(){
 	
 		shop = (ImageButton)findViewById(R.id.shop);
 		viewghost = (GameViewGhost)findViewById(R.id.GhostView);
+		dropprize = (GameViewFall)findViewById(R.id.dropprize);
 		viewmiaozhunjing  = (GameViewMiaoZhunJing) findViewById(R.id.MiaoZhunJingView);
+		select_view = (GridView)findViewById(R.id.select_photo);
 		shop.setOnClickListener(this);
 	}
 
@@ -79,6 +117,25 @@ public class Gameview  extends Activity implements OnClickListener{
 
 
 		}
+	}
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+		// TODO Auto-generated method stub
+		              switch (position) {
+					case 0:
+					menu.toggle(false);
+						break;
+
+					case 1:
+						  menu.toggle(false);
+							break;
+						
+						
+					case 2:
+						 menu.toggle(false);
+							break;
+					
+					}
 	}
 
 }
