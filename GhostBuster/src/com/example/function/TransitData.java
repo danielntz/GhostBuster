@@ -17,10 +17,24 @@ public class TransitData {
 	  	  public    static   float   down_Y;     //按下的纵坐标
 	  	  public     static   boolean   isdown ;   //是否发生了按下动作
 	     public     static    boolean   zidanshu ; // 按下瞄准器，发出一颗子弹
-	  	  
+	     public    static    int         score;                //如果分数达到250，则就是弹出升级界面
+	  	 public   static    boolean     judge = false ;      //判断是否要在屏幕上显示文字
+	  	 
 	     
 	     
-	  	  public static boolean isZidanshu() {
+	  	  public static boolean isJudge() {
+			return judge;
+		}
+		public static void setJudge(boolean judge) {
+			TransitData.judge = judge;
+		}
+		public static int getScore() {
+			return score;
+		}
+		public static void setScore(int score) {
+			TransitData.score = score;
+		}
+		public static boolean isZidanshu() {
 			return zidanshu;
 		}
 		public static void setZidanshu(boolean zidanshu) {

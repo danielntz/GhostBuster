@@ -1,0 +1,84 @@
+package com.example.UI;
+
+import com.example.function.PlayVoice;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.util.AttributeSet;
+import android.view.View;
+
+public class GameViewShow  extends View{
+   
+	   private  Paint  middlepaint = new Paint();   
+	  private   String   roundcount = "Round ";
+	  private   int     count = 1;                                        //默认关数
+	  private   int  time = 0;
+	
+	public GameViewShow(Context context) {
+		super(context);
+		// TODO Auto-generated constructor stub
+	}
+
+	@SuppressLint("NewApi")
+	public GameViewShow(Context context, AttributeSet attrs, int defStyleAttr,
+			int defStyleRes) {
+		super(context, attrs, defStyleAttr, defStyleRes);
+		// TODO Auto-generated constructor stub
+	}
+
+	public GameViewShow(Context context, AttributeSet attrs, int defStyleAttr) {
+		super(context, attrs, defStyleAttr);
+		// TODO Auto-generated constructor stub
+	}
+
+	public GameViewShow(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		// TODO Auto-generated constructor stub
+		//初始化
+	}
+
+	@Override
+	protected void onDraw(Canvas canvas) {
+		// TODO Auto-generated method stub
+	   //绘图函数
+		if(time == 0 )
+		{
+			middlepaint.setTextSize(40.0f);
+			canvas.drawText(roundcount + count +"", 200, 200, middlepaint);
+		}
+		else{
+			   //什么都不画
+			    
+		}
+		
+	}
+
+	 public  class  showcontent implements Runnable{
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			        while(time <= 1000){
+			        	         
+			        	           postInvalidate();
+			        	      
+			        	      try {
+								Thread.sleep(1000);
+								time +=1000;
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+			        }
+		}
+		 
+	 }
+
+
+
+}
+
+
+

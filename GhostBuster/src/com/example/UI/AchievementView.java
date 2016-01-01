@@ -14,5 +14,7 @@ public class AchievementView  extends Activity{
 		// TODO Auto-generated method stub
 	  	super.onCreate(savedInstanceState);
 		setContentView(R.layout.achievementview_activity);
+		
+		
 	}
 }

@@ -3,14 +3,18 @@ package com.example.UI;
 
 import com.example.GridViewAdapter.GridViewAdapter;
 import com.example.data.Ghost;
+import com.example.function.TransitData;
 import com.example.ghostbuster.R;
 import com.example.listener.OnActionListener;
+import com.example.listener.OnScoreListener;
 import com.example.listener.dataload;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -24,6 +28,7 @@ import android.widget.Toast;
 
 public class Gameview  extends Activity implements OnClickListener, OnItemClickListener{
 
+	protected static final String TAG = null;
 	private  SlidingMenu  menu;     //获得侧滑菜单控件
 	private   GameViewGhost  viewghost; 
 	private   ImageButton   shop;
@@ -32,7 +37,9 @@ public class Gameview  extends Activity implements OnClickListener, OnItemClickL
 	private   GameViewFall       dropprize;
 	private   GridView    select_view;
 	private   GridViewAdapter adapter;
-
+	private    GameViewShow  showtitle;
+	private    int  beforescore   = 0 ;     //当分数没有改变时，屏幕不做任何处理
+   private    boolean   first = true;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,9 @@ public class Gameview  extends Activity implements OnClickListener, OnItemClickL
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		//	setBehindContentView(R.layout.shangdiancehua_activity);    //侧滑菜单,继承SlidingFragmentActivity才行
 		setContentView(R.layout.gameview_activity);
+		Intent intent  = new Intent(this,LevelUp.class);
+	   startActivity(intent);
+		
 		init();
 		tanchucehua();
 		viewmiaozhunjing.setOnActionListener(new OnActionListener() {
@@ -63,8 +73,30 @@ public class Gameview  extends Activity implements OnClickListener, OnItemClickL
 				
 			}
 		});
+		//设置监听
+	
+			    	      viewghost.setOnScoreListener(new OnScoreListener() {
+			    			
+			    			@Override
+			    			public void getcount(int score) {
+			    				         
+			    				      
+			    				   if(first)
+			    				   {
+			    				    	 showtitle.postInvalidate();
+			    				    	 first = false;
+			    				   }
+			    		
+			    				   if((  score != 0 &&beforescore != score && score %100 == 0)){
+			    					     TransitData.setJudge(true);
+			    					     showtitle.postInvalidate();
+			    			  }
+			    				   
+			    				     beforescore = score;
+			    			}
+	            });	   
+}
 
-	}
 	/**
 	 * 在此界面的任何地方都能直接右滑显示出侧滑界面加上setBehindContentView 方法
 	 */
@@ -103,6 +135,7 @@ public class Gameview  extends Activity implements OnClickListener, OnItemClickL
 		dropprize = (GameViewFall)findViewById(R.id.dropprize);
 		viewmiaozhunjing  = (GameViewMiaoZhunJing) findViewById(R.id.MiaoZhunJingView);
 		select_view = (GridView)findViewById(R.id.select_photo);
+		showtitle = (GameViewShow)findViewById(R.id.showtitle);
 		shop.setOnClickListener(this);
 	}
 
