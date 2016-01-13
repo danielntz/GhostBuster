@@ -18,7 +18,7 @@ public class LevelUp   extends  Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.levelup_activity);
-		 levelwindow = new PopupWindow();
+		 
 				 
 		
 		

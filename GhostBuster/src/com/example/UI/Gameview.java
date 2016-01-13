@@ -40,6 +40,7 @@ public class Gameview  extends Activity implements OnClickListener, OnItemClickL
 	private    GameViewShow  showtitle;
 	private    int  beforescore   = 0 ;     //当分数没有改变时，屏幕不做任何处理
    private    boolean   first = true;
+   private   boolean    levelup = false;   //判断是否升级 ，升级弹出升级界面，没有升级不弹出升级界面
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -48,8 +49,11 @@ public class Gameview  extends Activity implements OnClickListener, OnItemClickL
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		//	setBehindContentView(R.layout.shangdiancehua_activity);    //侧滑菜单,继承SlidingFragmentActivity才行
 		setContentView(R.layout.gameview_activity);
-		Intent intent  = new Intent(this,LevelUp.class);
+		//当分数每达到150分时，就会弹出升级界面
+		if(levelup){
+     	Intent intent  = new Intent(this,LevelUp.class);
 	   startActivity(intent);
+		}
 		
 		init();
 		tanchucehua();
@@ -79,7 +83,13 @@ public class Gameview  extends Activity implements OnClickListener, OnItemClickL
 			    			
 			    			@Override
 			    			public void getcount(int score) {
-			    				         
+			    				         //没获得150分则升一级
+			    				   if(score % 150 == 0){
+			    					      levelup = true;
+			    				   }
+			    				   else{
+			    					    levelup = false;
+			    				   }
 			    				      
 			    				   if(first)
 			    				   {
