@@ -2,19 +2,170 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#b0000000"
     >
        <TextView   
                         android:id="@+id/player_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="mingzi"
-                          />
+                        android:text="名称："
+                        android:textColor="#ffffff"
+                        android:textSize="20sp"
+                        
+                   />
+       <TextView   
+                             android:id="@+id/hero_name"
+                             android:layout_height="wrap_content"
+                             android:layout_width="wrap_content"
+                             android:layout_toRightOf="@id/player_name"
+                             android:textColor="#ffffff"
+                             android:textSize="20sp"
+                             />
          <TextView   
                          android:id="@+id/player_level"
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
-                         android:text="dengji"/>
-                          
-                     
+                         android:layout_toRightOf="@id/hero_name"
+                         android:text="等级："
+                         android:textColor="#ffffff"
+                         android:textSize="20sp"
+                         android:layout_marginLeft="30dip"/>
+         
+       
+         
+         <TextView   
+                          android:id="@+id/level"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_toRightOf="@id/player_level"
+                          android:textSize="20sp"
+                          android:textColor="#ffffff"/>
+           <TextView    
+                             android:id="@+id/dot"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:layout_toRightOf="@id/level"
+                             android:textSize="20sp"
+                             android:text="技能点："
+                             android:layout_marginLeft="30dip"
+                             android:textColor="#ffffff"/>
+            <TextView   
+                           android:id="@+id/dotcount"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_toRightOf="@id/dot"
+                          android:textSize="20sp"
+                          android:textColor="#ffffff"/>
+                <LinearLayout 
+                          android:layout_width="fill_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_below="@id/player_level"
+                          android:orientation="vertical"
+                          >
+                          <LinearLayout
+                                      android:layout_width="wrap_content"
+                                      android:layout_height="wrap_content"
+                                      android:orientation="horizontal" >
+                    <TextView   
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                       android:text="力量：" 
+                       android:textSize="20sp"
+                       android:textColor="#FFFFFF"
+                                  />
+                      <SeekBar 
+                                       android:layout_width="200dip"
+                                       android:layout_height="wrap_content"
+                                       android:maxWidth="10.0dip"
+                                       android:id="@+id/powerseekbar"
+                                       android:maxHeight="3.0dip"
+                                       android:max="100"/>
+                        <ImageView  
+                                     android:id="@+id/poweradd"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                     android:background="@drawable/plus_selector"
+                                     
+                                     />
+                       </LinearLayout>
+                        <LinearLayout
+                                      android:layout_width="wrap_content"
+                                      android:layout_height="wrap_content"
+                                      android:orientation="horizontal" >
+                    <TextView   
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                       android:text="智力：" 
+                       android:textSize="20sp"
+                       android:textColor="#FFFFFF"
+                                  />
+                    <SeekBar 
+                                       android:layout_width="200dip"
+                                       android:id="@+id/intelligenceseekbar"
+                                       android:layout_height="wrap_content"
+                                       android:maxWidth="10.0dip"
+                                       android:maxHeight="3.0dip"
+                                       android:max="100"/>
+                        <ImageView  
+                                     android:id="@+id/intelligenceadd"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:background="@drawable/plus_selector"
+                                        android:layout_gravity="center_vertical"
+                                     />
+                       </LinearLayout>
+                           <LinearLayout
+                                      android:layout_width="wrap_content"
+                                      android:layout_height="wrap_content"
+                                      android:orientation="horizontal" >
+                    <TextView   
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                       android:text="生命：" 
+                       android:textSize="20sp"
+                       android:textColor="#FFFFFF"
+                                  />
+                      <SeekBar 
+                                       android:layout_width="200dip"
+                                       android:layout_height="wrap_content"
+                                       android:id="@+id/lifeseekbar"
+                                       android:maxWidth="10.0dip"
+                                       android:maxHeight="3.0dip"
+                                       android:max="100"/>
+                        <ImageView  
+                                     android:id="@+id/lifeadd"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:background="@drawable/plus_selector"
+                                  android:layout_gravity="center_vertical"
+                                     />
+                       </LinearLayout>
+                    
+                    <RelativeLayout 
+                      android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                            >
+                        <Button  
+                                          android:id="@+id/ok"
+                                          android:layout_width="wrap_content"
+                                          android:layout_height="wrap_content"
+                                          android:layout_centerHorizontal="true"
+                                          android:text="确定"
+                                           />
+                        
+                        <Button 
+                                         android:id="@+id/cancel"
+                                         android:layout_toRightOf="@id/ok"
+                                          android:layout_width="wrap_content"
+                                          android:layout_height="wrap_content"
+                                           android:layout_marginLeft="100dip"
+                                          android:text="取消" />
+                        
+                    </RelativeLayout>
+                    
+                    
+
+                     </LinearLayout>
        
 </RelativeLayout>
