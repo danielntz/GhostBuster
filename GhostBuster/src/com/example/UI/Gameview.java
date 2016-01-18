@@ -94,7 +94,7 @@ public class Gameview  extends Activity implements OnClickListener, OnItemClickL
 			    				         //每获得150分则升一级
 			    				   if(score % 150 == 0 && score != 0){
 			    					           levelup = true;
-			    					           jiantingcondition = true;
+			    					      //     jiantingcondition = true;
 			    					//当分数每达到150分时，就会弹出升级界面
 			    							if(levelup && jiantingcondition){
 			    							tanchucaidan();    //显示弹出菜单
