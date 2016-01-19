@@ -28,7 +28,8 @@
          <activity  android:name="com.example.UI.AchievementView"  android:screenOrientation="portrait"></activity>
           <activity  android:name="com.example.UI.ShareView"  android:screenOrientation="portrait"></activity>
          <activity    android:name="com.example.UI.RegisterView" android:screenOrientation="portrait"></activity>
-          <activity android:name="com.example.UI.LevelUp" android:screenOrientation="landscape" android:theme="@android:style/Theme.Translucent"></activity>  
+          <activity android:name="com.example.ghostbuster.Levelup" android:screenOrientation="landscape" android:theme="@android:style/Theme.Translucent"></activity>  
+          
           </application>
 
 </manifest>

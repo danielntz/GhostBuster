@@ -2,8 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#b0000000"
-    >
+>
+<RelativeLayout    
+                                 android:layout_height="wrap_content"
+                                 android:layout_width="wrap_content"
+                                android:layout_marginTop="30dip"                          
+                                 android:background="#b0000000">
+    
        <TextView   
                         android:id="@+id/player_name"
                         android:layout_width="wrap_content"
@@ -56,6 +61,13 @@
                           android:layout_toRightOf="@id/dot"
                           android:textSize="20sp"
                           android:textColor="#ffffff"/>
+             <ImageView   
+                                   android:id="@+id/showphoto"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:layout_toRightOf="@id/dotcount"
+                                   android:layout_marginLeft="15dip"
+                                   />
                 <LinearLayout 
                           android:layout_width="fill_parent"
                           android:layout_height="wrap_content"
@@ -85,6 +97,7 @@
                                      android:layout_width="wrap_content"
                                      android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="7dip"
                                      android:background="@drawable/plus_selector"
                                      
                                      />
@@ -113,6 +126,7 @@
                                      android:layout_height="wrap_content"
                                      android:background="@drawable/plus_selector"
                                         android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="7dip"
                                      />
                        </LinearLayout>
                            <LinearLayout
@@ -139,6 +153,7 @@
                                      android:layout_height="wrap_content"
                                      android:background="@drawable/plus_selector"
                                   android:layout_gravity="center_vertical"
+                                  android:layout_marginLeft="7dip"
                                      />
                        </LinearLayout>
                     
@@ -151,21 +166,24 @@
                                           android:layout_width="wrap_content"
                                           android:layout_height="wrap_content"
                                           android:layout_centerHorizontal="true"
+                                        
                                           android:text="确定"
                                            />
-                        
-                        <Button 
-                                         android:id="@+id/cancel"
-                                         android:layout_toRightOf="@id/ok"
+                            <Button  
+                                          android:id="@+id/cancel"
                                           android:layout_width="wrap_content"
                                           android:layout_height="wrap_content"
-                                           android:layout_marginLeft="100dip"
-                                          android:text="取消" />
+                                         android:layout_marginLeft="80dip"
+                                          android:layout_toRightOf="@id/ok"
+                                          android:text="取消"
+                                           />
+                        
                         
                     </RelativeLayout>
                     
                     
 
                      </LinearLayout>
+                     </RelativeLayout>
        
 </RelativeLayout>

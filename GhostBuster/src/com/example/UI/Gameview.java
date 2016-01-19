@@ -4,6 +4,7 @@ package com.example.UI;
 import com.example.GridViewAdapter.GridViewAdapter;
 import com.example.data.Ghost;
 import com.example.function.TransitData;
+import com.example.ghostbuster.Levelup;
 import com.example.ghostbuster.MainActivity;
 import com.example.ghostbuster.R;
 import com.example.listener.OnActionListener;
@@ -47,14 +48,8 @@ public class Gameview  extends Activity implements OnClickListener, OnItemClickL
 	private    int  beforescore   = 0 ;     //当分数没有改变时，屏幕不做任何处理
    private    boolean   first = true;
    private   boolean    levelup = false;   //判断是否升级 ，升级弹出升级界面，没有升级不弹出升级界面
-  private    boolean    jiantingcondition = true;
-  private   PopupWindow   tanchu = new PopupWindow();
- //弹出等级升级界面
-  private    Button    OK  ;
-  private   Button   Cancel;
-  private  SeekBar   power , intelligence, life;
-  private   ImageView  power_plus , intelligence_plus, life_plus;
-  private   TextView   name,level,skillcount;
+  private     int   currentscore;   
+ 
   
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -92,13 +87,15 @@ public class Gameview  extends Activity implements OnClickListener, OnItemClickL
 			    			@Override
 			    			public void getcount(int score) {
 			    				         //每获得150分则升一级
-			    				   if(score % 150 == 0 && score != 0){
+			    				          
+			    				   if(score % 150 == 0 && score != 0 ){
 			    					           levelup = true;
-			    					      //     jiantingcondition = true;
 			    					//当分数每达到150分时，就会弹出升级界面
-			    							if(levelup && jiantingcondition){
-			    							tanchucaidan();    //显示弹出菜单
-			    							jiantingcondition = false;
+			    							if(levelup && TransitData.isjianting() && beforescore != score){
+			    						  //	tanchucaidan();    //显示弹出菜单
+			    						   Intent intent = new Intent(getApplicationContext(),Levelup.class);
+			    						   startActivity(intent);
+			    							TransitData.setjianting(false); 
 			    							}
 			    				   }
 			    				   else{
@@ -132,12 +129,7 @@ public class Gameview  extends Activity implements OnClickListener, OnItemClickL
 		 	   	menu.setFadeDegree(0.35f);
 	  }*/
 	
-	  public void tanchucaidan(){
-		              View view = getLayoutInflater().inflate(R.layout.hero_level_activity, null);
-		              tanchu = new PopupWindow(view,470,270);       //后两个参数为宽度和高度
-		              tanchu.showAtLocation(this.findViewById(R.id.GhostView),Gravity.TOP,30,130); //弹出的位置，后两个为横坐标和纵坐标
-	                     
-	  }
+	 
 	/**
 	 * 点击按钮出现侧滑菜单
 	 */
@@ -164,7 +156,7 @@ public class Gameview  extends Activity implements OnClickListener, OnItemClickL
 		shop = (ImageButton)findViewById(R.id.shop);
 		viewghost = (GameViewGhost)findViewById(R.id.GhostView);
 		dropprize = (GameViewFall)findViewById(R.id.dropprize);
-		viewmiaozhunjing  = (GameViewMiaoZhunJing) findViewById(R.id.MiaoZhunJingView);
+	    viewmiaozhunjing  = (GameViewMiaoZhunJing) findViewById(R.id.MiaoZhunJingView);
 		select_view = (GridView)findViewById(R.id.select_photo);
 		showtitle = (GameViewShow)findViewById(R.id.showtitle);
 		shop.setOnClickListener(this);
@@ -175,13 +167,9 @@ public class Gameview  extends Activity implements OnClickListener, OnItemClickL
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.shop:
-		        	menu.toggle(true);      //弹出侧滑菜单
+		        	menu.toggle(true);      //弹出侧滑菜单,当和OnTouchEvent事件合在一起使用时此时点击事件无响应
                 	break;
-		case R.id.ok:
-			       break;
-		case R.id.cancel :
-			       tanchu.dismiss();
-			       break;
+		
 
 		}
 	}
@@ -200,31 +188,6 @@ public class Gameview  extends Activity implements OnClickListener, OnItemClickL
 							break;
 					
 					}
-	}
-	/**
-	 * 初始化等级升级界面的信息
-	 */
-	public   void   inittanchujiemian(){
-		       //初始化两个按钮     
-		        OK = (Button)findViewById(R.id.ok);
-		        Cancel = (Button)findViewById(R.id.cancel);
-		      //初始化3个进度条
-		        power = (SeekBar)findViewById(R.id.powerseekbar);
-		        intelligence = (SeekBar)findViewById(R.id.intelligenceseekbar);
-		        life = (SeekBar)findViewById(R.id.lifeseekbar);
-		       power_plus = (ImageView)findViewById(R.id.poweradd);
-		       intelligence_plus = (ImageView)findViewById(R.id.intelligenceadd);
-		       life_plus  = (ImageView)findViewById(R.id.lifeseekbar);
-		       name = (TextView)findViewById(R.id.hero_name);
-		       level = (TextView)findViewById(R.id.level);
-		       skillcount = (TextView)findViewById(R.id.dotcount);
-		       OK.setOnClickListener(this);
-		       Cancel.setOnClickListener(this);
-		       power_plus.setOnClickListener(this);
-		       intelligence_plus.setOnClickListener(this);
-		       life_plus.setOnClickListener(this);
-		       
-		        
 	}
 	
 

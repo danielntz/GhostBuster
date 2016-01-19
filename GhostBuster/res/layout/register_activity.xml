@@ -2,7 +2,78 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
-
+    android:orientation="vertical" 
+    android:background="#FFCC00">
+      <TextView    
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:textSize="18sp"
+                                    android:text="英雄名自己填写,其它属性如序号,等级,力量,智力,生命系统给出"
+                                    android:textColor="#FF6600"
+                                />
+    <TextView      
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="英雄名"
+                       android:textSize="25sp" 
+                       android:layout_gravity="center_horizontal"
+                          />
+  <EditText      
+                              android:id="@+id/name"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_gravity="center_horizontal"
+                              android:hint="请输入英雄名"
+                                 />
+  <Button   
+                              android:id="@+id/ok"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="诞生"
+                               android:layout_gravity="center_horizontal"/>
+  <TextView     
+                             android:id="@+id/okxuhao"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:textSize="20sp"
+                               android:layout_marginTop="30dip"
+                                   android:layout_gravity="center_horizontal"
+                               android:textColor="#000000"/>
+  <TextView   
+                          android:id="@+id/oklevel"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:textSize="20sp"
+                                   android:layout_gravity="center_horizontal"
+                               android:textColor="#000000"     />
+  
+  <TextView     
+                             android:id="@+id/okname"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:textSize="20sp"
+                                   android:layout_gravity="center_horizontal"
+                               android:textColor="#000000"/>
+  <TextView     
+                             android:id="@+id/okpower"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:textSize="20sp"
+                                   android:layout_gravity="center_horizontal"
+                               android:textColor="#000000"/>
+  <TextView     
+                             android:id="@+id/okintelligence"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:textSize="20sp"
+                                   android:layout_gravity="center_horizontal"
+                               android:textColor="#000000"/>
+  <TextView     
+                             android:id="@+id/oklife"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:textSize="20sp"
+                                   android:layout_gravity="center_horizontal"
+                               android:textColor="#000000"/>
+  
 </LinearLayout>

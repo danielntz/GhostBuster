@@ -19,8 +19,14 @@ public class TransitData {
 	     public     static    boolean   zidanshu ; // 按下瞄准器，发出一颗子弹
 	     public    static    int         score;                //如果分数达到250，则就是弹出升级界面
 	  	 public   static    boolean     judge = false ;      //判断是否要在屏幕上显示文字
+	  	 public   static    Boolean    jiantingcondition  = true; // 判断是否要弹出角色升级界面
 	  	 
-	     
+	     public   static boolean   isjianting(){
+	    	 return jiantingcondition;
+	     }
+	     public  static void setjianting(boolean   jianting){
+	    	   TransitData.jiantingcondition = jianting;
+	     }
 	     
 	  	  public static boolean isJudge() {
 			return judge;
